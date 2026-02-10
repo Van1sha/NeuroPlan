@@ -1,979 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Smart Study Planner - The ultimate tool for students to organize subjects, manage schedules, track progress, and boost productivity.">
-    <title>Smart Study Planner - Study Smarter, Not Harder</title>
+    <title>Smart Study Planner</title>
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">📔✒️</span>
-                <span class="logo-text">NeuroPlan</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#benefits">Benefits</a></li>
-                <li><a href="#download">Download</a></li>
-            </ul>
-            <button class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+    <div class="app">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">📔 NeuroPlan</div>
+            <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+            <button class="nav-btn" data-tab="subjects">📖 Subjects</button>
+            <button class="nav-btn" data-tab="schedule">📅 Schedule</button>
+            <button class="nav-btn" data-tab="tasks">✅ Tasks</button>
+            <button class="nav-btn" data-tab="analytics">📈 Analytics</button>
+        </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Study Smarter, <span class="gradient-text">Not Harder</span></h1>
-                <p class="hero-subtitle">Organize your subjects, manage schedules, track deadlines, and boost your academic productivity with our all-in-one study planner.</p>
-                <div class="hero-buttons">
-                    <a href="#download" class="btn btn-primary">Get Started Free</a>
-                    <a href="#features" class="btn btn-secondary">Learn More</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Free Forever</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">No Login</div>
-                        <div class="stat-label">Required</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">Offline</div>
-                        <div class="stat-label">Works Anywhere</div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="hero-mockup">
-                    <div class="mockup-window">
-                        <div class="window-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
+        <!-- Main Content -->
+        <main class="content">
+
+            <!-- Dashboard -->
+            <section id="dashboard" class="tab active">
+                <h1>Dashboard</h1>
+                <div class="stats-row" id="dash-stats"></div>
+                <div class="two-col">
+                    <div class="card">
+                        <h2>📅 Today's Schedule</h2>
+                        <div id="dash-schedule">
+                            <p class="empty">No classes scheduled today.</p>
                         </div>
-                        <div class="window-content">
-                            <div class="mockup-sidebar">
-                                <div class="sidebar-item active" data-view="dashboard">📊 Dashboard</div>
-                                <div class="sidebar-item" data-view="subjects">📖 Subjects</div>
-                                <div class="sidebar-item" data-view="schedule">📅 Schedule</div>
-                                <div class="sidebar-item" data-view="tasks">✓ Tasks</div>
-                                <div class="sidebar-item" data-view="analytics">📈 Analytics</div>
-                            </div>
-                            <div class="mockup-main">
-                                <!-- Dashboard View -->
-                                <div class="mockup-view active" id="dashboard-view">
-                                    <div class="mockup-header">
-                                        <h3>Today's Overview</h3>
-                                        <div class="mockup-date">March 15, 2024</div>
-                                    </div>
-                                    <div class="mockup-stats">
-                                        <div class="stat-card" data-detail="subjects">
-                                            <div class="stat-icon">📔✒️</div>
-                                            <div class="stat-content">
-                                                <div class="stat-number" data-target="8">0</div>
-                                                <div class="stat-label">Active Subjects</div>
-                                            </div>
-                                            <div class="stat-arrow">▶</div>
-                                        </div>
-                                        <div class="stat-card" data-detail="schedule">
-                                            <div class="stat-icon">⏰</div>
-                                            <div class="stat-content">
-                                                <div class="stat-number" data-target="6">0</div>
-                                                <div class="stat-label">Hours Today</div>
-                                            </div>
-                                            <div class="stat-arrow">▶</div>
-                                        </div>
-                                        <div class="stat-card" data-detail="tasks">
-                                            <div class="stat-icon">✓</div>
-                                            <div class="stat-content">
-                                                <div class="stat-number" data-target="12">0</div>
-                                                <div class="stat-label">Tasks Completed</div>
-                                            </div>
-                                            <div class="stat-arrow">▶</div>
-                                        </div>
-                                        <div class="stat-card" data-detail="analytics">
-                                            <div class="stat-icon">🎯</div>
-                                            <div class="stat-content">
-                                                <div class="stat-number" data-target="85">0</div>
-                                                <div class="stat-label">Weekly Goal %</div>
-                                            </div>
-                                            <div class="stat-arrow">▶</div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Interactive Detail Views -->
-                                    <div class="detail-view" id="subjects-detail" style="display: none;">
-                                        <div class="detail-header">
-                                            <h4>Active Subjects</h4>
-                                            <button class="detail-close">×</button>
-                                        </div>
-                                        <div class="subjects-grid">
-                                            <div class="subject-card">
-                                                <div class="subject-color" style="background: #667eea;"></div>
-                                                <div class="subject-info">
-                                                    <div class="subject-name">Mathematics</div>
-                                                    <div class="subject-progress">4/5 tasks completed</div>
-                                                </div>
-                                            </div>
-                                            <div class="subject-card">
-                                                <div class="subject-color" style="background: #764ba2;"></div>
-                                                <div class="subject-info">
-                                                    <div class="subject-name">Physics</div>
-                                                    <div class="subject-progress">3/4 tasks completed</div>
-                                                </div>
-                                            </div>
-                                            <div class="subject-card">
-                                                <div class="subject-color" style="background: #f093fb;"></div>
-                                                <div class="subject-info">
-                                                    <div class="subject-name">Chemistry</div>
-                                                    <div class="subject-progress">5/6 tasks completed</div>
-                                                </div>
-                                            </div>
-                                            <div class="subject-card">
-                                                <div class="subject-color" style="background: #4facfe;"></div>
-                                                <div class="subject-info">
-                                                    <div class="subject-name">Biology</div>
-                                                    <div class="subject-progress">2/3 tasks completed</div>
-                                                </div>
-                                            </div>
-                                            <div class="subject-card">
-                                                <div class="subject-color" style="background: #00f2fe;"></div>
-                                                <div class="subject-info">
-                                                    <div class="subject-name">English</div>
-                                                    <div class="subject-progress">6/7 tasks completed</div>
-                                                </div>
-                                            </div>
-                                            <div class="subject-card">
-                                                <div class="subject-color" style="background: #f5576c;"></div>
-                                                <div class="subject-info">
-                                                    <div class="subject-name">History</div>
-                                                    <div class="subject-progress">3/5 tasks completed</div>
-                                                </div>
-                                            </div>
-                                            <div class="subject-card">
-                                                <div class="subject-color" style="background: #48bb78;"></div>
-                                                <div class="subject-info">
-                                                    <div class="subject-name">Computer Science</div>
-                                                    <div class="subject-progress">7/8 tasks completed</div>
-                                                </div>
-                                            </div>
-                                            <div class="subject-card">
-                                                <div class="subject-color" style="background: #ffbd2e;"></div>
-                                                <div class="subject-info">
-                                                    <div class="subject-name">Art</div>
-                                                    <div class="subject-progress">4/4 tasks completed</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="detail-view" id="schedule-detail" style="display: none;">
-                                        <div class="detail-header">
-                                            <h4>Today's Schedule</h4>
-                                            <button class="detail-close">×</button>
-                                        </div>
-                                        <div class="calendar-container">
-                                            <div class="calendar-header">
-                                                <button class="calendar-nav" id="prev-month">‹</button>
-                                                <div class="calendar-title">March 2024</div>
-                                                <button class="calendar-nav" id="next-month">›</button>
-                                            </div>
-                                            <div class="calendar-weekdays">
-                                                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-                                            </div>
-                                            <div class="calendar-days">
-                                                <div class="calendar-day other-month">24</div>
-                                                <div class="calendar-day other-month">25</div>
-                                                <div class="calendar-day other-month">26</div>
-                                                <div class="calendar-day other-month">27</div>
-                                                <div class="calendar-day other-month">28</div>
-                                                <div class="calendar-day other-month">29</div>
-                                                <div class="calendar-day">1</div>
-                                                <div class="calendar-day">2</div>
-                                                <div class="calendar-day">3</div>
-                                                <div class="calendar-day">4</div>
-                                                <div class="calendar-day">5</div>
-                                                <div class="calendar-day">6</div>
-                                                <div class="calendar-day">7</div>
-                                                <div class="calendar-day">8</div>
-                                                <div class="calendar-day">9</div>
-                                                <div class="calendar-day">10</div>
-                                                <div class="calendar-day">11</div>
-                                                <div class="calendar-day">12</div>
-                                                <div class="calendar-day">13</div>
-                                                <div class="calendar-day">14</div>
-                                                <div class="calendar-day today">15</div>
-                                                <div class="calendar-day">16</div>
-                                                <div class="calendar-day">17</div>
-                                                <div class="calendar-day">18</div>
-                                                <div class="calendar-day">19</div>
-                                                <div class="calendar-day">20</div>
-                                                <div class="calendar-day">21</div>
-                                                <div class="calendar-day">22</div>
-                                                <div class="calendar-day">23</div>
-                                                <div class="calendar-day">24</div>
-                                                <div class="calendar-day">25</div>
-                                                <div class="calendar-day">26</div>
-                                                <div class="calendar-day">27</div>
-                                                <div class="calendar-day">28</div>
-                                                <div class="calendar-day">29</div>
-                                                <div class="calendar-day">30</div>
-                                                <div class="calendar-day">31</div>
-                                                <div class="calendar-day other-month">1</div>
-                                                <div class="calendar-day other-month">2</div>
-                                                <div class="calendar-day other-month">3</div>
-                                                <div class="calendar-day other-month">4</div>
-                                                <div class="calendar-day other-month">5</div>
-                                                <div class="calendar-day other-month">6</div>
-                                                <div class="calendar-day other-month">7</div>
-                                            </div>
-                                        </div>
-                                        <div class="schedule-events">
-                                            <div class="schedule-event">
-                                                <div class="event-time">9:00 AM</div>
-                                                <div class="event-title">Math Lecture</div>
-                                                <div class="event-location">Room 101</div>
-                                            </div>
-                                            <div class="schedule-event">
-                                                <div class="event-time">11:00 AM</div>
-                                                <div class="event-title">Physics Lab</div>
-                                                <div class="event-location">Lab 3</div>
-                                            </div>
-                                            <div class="schedule-event">
-                                                <div class="event-time">2:00 PM</div>
-                                                <div class="event-title">Chemistry Study</div>
-                                                <div class="event-location">Library</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="detail-view" id="tasks-detail" style="display: none;">
-                                        <div class="detail-header">
-                                            <h4>Today's Tasks</h4>
-                                            <button class="detail-close">×</button>
-                                        </div>
-                                        <div class="todo-list">
-                                            <div class="todo-item completed">
-                                                <input type="checkbox" checked disabled>
-                                                <div class="todo-content">
-                                                    <div class="todo-title">Complete Math Homework</div>
-                                                    <div class="todo-meta">Due: Today • High Priority</div>
-                                                </div>
-                                            </div>
-                                            <div class="todo-item completed">
-                                                <input type="checkbox" checked disabled>
-                                                <div class="todo-content">
-                                                    <div class="todo-title">Physics Problem Set</div>
-                                                    <div class="todo-meta">Due: Today • Medium Priority</div>
-                                                </div>
-                                            </div>
-                                            <div class="todo-item">
-                                                <input type="checkbox" disabled>
-                                                <div class="todo-content">
-                                                    <div class="todo-title">Chemistry Lab Report</div>
-                                                    <div class="todo-meta">Due: Tomorrow • High Priority</div>
-                                                </div>
-                                            </div>
-                                            <div class="todo-item">
-                                                <input type="checkbox" disabled>
-                                                <div class="todo-content">
-                                                    <div class="todo-title">Biology Reading</div>
-                                                    <div class="todo-meta">Due: Tomorrow • Low Priority</div>
-                                                </div>
-                                            </div>
-                                            <div class="todo-item">
-                                                <input type="checkbox" disabled>
-                                                <div class="todo-content">
-                                                    <div class="todo-title">English Essay</div>
-                                                    <div class="todo-meta">Due: Friday • High Priority</div>
-                                                </div>
-                                            </div>
-                                            <div class="todo-item">
-                                                <input type="checkbox" disabled>
-                                                <div class="todo-content">
-                                                    <div class="todo-title">History Research</div>
-                                                    <div class="todo-meta">Due: Friday • Medium Priority</div>
-                                                </div>
-                                            </div>
-                                            <div class="todo-item">
-                                                <input type="checkbox" disabled>
-                                                <div class="todo-content">
-                                                    <div class="todo-title">CS Project</div>
-                                                    <div class="todo-meta">Due: Next Week • High Priority</div>
-                                                </div>
-                                            </div>
-                                            <div class="todo-item">
-                                                <input type="checkbox" disabled>
-                                                <div class="todo-content">
-                                                    <div class="todo-title">Art Sketch</div>
-                                                    <div class="todo-meta">Due: Next Week • Low Priority</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="detail-view" id="analytics-detail" style="display: none;">
-                                        <div class="detail-header">
-                                            <h4>Weekly Analytics</h4>
-                                            <button class="detail-close">×</button>
-                                        </div>
-                                        <div class="analytics-interactive">
-                                            <div class="analytics-tabs">
-                                                <button class="analytics-tab active" data-tab="study-time">Study Time</button>
-                                                <button class="analytics-tab" data-tab="tasks">Tasks</button>
-                                                <button class="analytics-tab" data-tab="subjects">Subjects</button>
-                                            </div>
-                                            <div class="analytics-content">
-                                                <div class="analytics-chart active" id="study-time-chart">
-                                                    <div class="chart-header">Hours Studied This Week</div>
-                                                    <div class="bar-chart">
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Mon</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 60%; background: #667eea;" data-value="6h"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Tue</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 80%; background: #764ba2;" data-value="8h"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Wed</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 70%; background: #f093fb;" data-value="7h"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Thu</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 90%; background: #4facfe;" data-value="9h"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Fri</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 75%; background: #00f2fe;" data-value="7.5h"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Sat</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 50%; background: #f5576c;" data-value="5h"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item today">
-                                                            <div class="bar-label">Sun</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 85%; background: #48bb78;" data-value="8.5h"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="analytics-chart" id="tasks-chart">
-                                                    <div class="chart-header">Tasks Completed This Week</div>
-                                                    <div class="bar-chart">
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Mon</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 40%; background: #667eea;" data-value="4"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Tue</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 60%; background: #764ba2;" data-value="6"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Wed</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 50%; background: #f093fb;" data-value="5"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Thu</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 70%; background: #4facfe;" data-value="7"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Fri</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 55%; background: #00f2fe;" data-value="5.5"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item">
-                                                            <div class="bar-label">Sat</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 30%; background: #f5576c;" data-value="3"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="bar-item today">
-                                                            <div class="bar-label">Sun</div>
-                                                            <div class="bar-container">
-                                                                <div class="bar-fill" style="height: 65%; background: #48bb78;" data-value="6.5"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="analytics-chart" id="subjects-chart">
-                                                    <div class="chart-header">Subject Performance</div>
-                                                    <div class="pie-chart">
-                                                        <div class="pie-segment" style="background: conic-gradient(#667eea 0% 25%, #764ba2 25% 50%, #f093fb 50% 75%, #4facfe 75% 100%);" data-subject="Math"></div>
-                                                        <div class="pie-legend">
-                                                            <div class="legend-item">
-                                                                <div class="legend-color" style="background: #667eea;"></div>
-                                                                <span>Mathematics (25%)</span>
-                                                            </div>
-                                                            <div class="legend-item">
-                                                                <div class="legend-color" style="background: #764ba2;"></div>
-                                                                <span>Physics (25%)</span>
-                                                            </div>
-                                                            <div class="legend-item">
-                                                                <div class="legend-color" style="background: #f093fb;"></div>
-                                                                <span>Chemistry (25%)</span>
-                                                            </div>
-                                                            <div class="legend-item">
-                                                                <div class="legend-color" style="background: #4facfe;"></div>
-                                                                <span>Biology (25%)</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mockup-progress">
-                                        <div class="progress-item">
-                                            <div class="progress-label">Math Study Progress</div>
-                                            <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 75%"></div>
-                                            </div>
-                                            <div class="progress-text">75% Complete</div>
-                                        </div>
-                                        <div class="progress-item">
-                                            <div class="progress-label">Physics Assignment</div>
-                                            <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 60%"></div>
-                                            </div>
-                                            <div class="progress-text">60% Complete</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Subjects View -->
-                                <div class="mockup-view" id="subjects-view">
-                                    <div class="mockup-header">
-                                        <h3>My Subjects</h3>
-                                        <button class="mockup-btn">+ Add Subject</button>
-                                    </div>
-                                    <div class="subjects-list">
-                                        <div class="subject-item" style="border-left-color: #667eea;">
-                                            <div class="subject-name">Mathematics</div>
-                                            <div class="subject-stats">4 tasks • 12h/week</div>
-                                        </div>
-                                        <div class="subject-item" style="border-left-color: #764ba2;">
-                                            <div class="subject-name">Physics</div>
-                                            <div class="subject-stats">3 tasks • 10h/week</div>
-                                        </div>
-                                        <div class="subject-item" style="border-left-color: #f093fb;">
-                                            <div class="subject-name">Chemistry</div>
-                                            <div class="subject-stats">5 tasks • 8h/week</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Schedule View -->
-                                <div class="mockup-view" id="schedule-view">
-                                    <div class="mockup-header">
-                                        <h3>Today's Schedule</h3>
-                                        <div class="mockup-date">March 15, 2024</div>
-                                    </div>
-                                    <div class="schedule-list">
-                                        <div class="schedule-item">
-                                            <div class="schedule-time">9:00 AM</div>
-                                            <div class="schedule-content">
-                                                <div class="schedule-title">Math Lecture</div>
-                                                <div class="schedule-location">Room 101</div>
-                                            </div>
-                                        </div>
-                                        <div class="schedule-item">
-                                            <div class="schedule-time">11:00 AM</div>
-                                            <div class="schedule-content">
-                                                <div class="schedule-title">Physics Lab</div>
-                                                <div class="schedule-location">Lab 3</div>
-                                            </div>
-                                        </div>
-                                        <div class="schedule-item">
-                                            <div class="schedule-time">2:00 PM</div>
-                                            <div class="schedule-content">
-                                                <div class="schedule-title">Chemistry Study</div>
-                                                <div class="schedule-location">Library</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Tasks View -->
-                                <div class="mockup-view" id="tasks-view">
-                                    <div class="mockup-header">
-                                        <h3>Today's Tasks</h3>
-                                        <button class="mockup-btn">+ Add Task</button>
-                                    </div>
-                                    <div class="tasks-list">
-                                        <div class="task-item completed">
-                                            <div class="task-checkbox">✓</div>
-                                            <div class="task-content">
-                                                <div class="task-title">Complete Math Homework</div>
-                                                <div class="task-meta">Due: Today • High Priority</div>
-                                            </div>
-                                        </div>
-                                        <div class="task-item">
-                                            <div class="task-checkbox">○</div>
-                                            <div class="task-content">
-                                                <div class="task-title">Physics Problem Set</div>
-                                                <div class="task-meta">Due: Tomorrow • Medium Priority</div>
-                                            </div>
-                                        </div>
-                                        <div class="task-item">
-                                            <div class="task-checkbox">○</div>
-                                            <div class="task-content">
-                                                <div class="task-title">Chemistry Lab Report</div>
-                                                <div class="task-meta">Due: Friday • High Priority</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Analytics View -->
-                                <div class="mockup-view" id="analytics-view">
-                                    <div class="mockup-header">
-                                        <h3>Weekly Analytics</h3>
-                                        <div class="mockup-date">Week of March 11-17</div>
-                                    </div>
-                                    <div class="analytics-content">
-                                        <div class="chart-placeholder">
-                                            <div class="chart-bar" style="height: 80%; background: #667eea;"></div>
-                                            <div class="chart-bar" style="height: 65%; background: #764ba2;"></div>
-                                            <div class="chart-bar" style="height: 90%; background: #f093fb;"></div>
-                                            <div class="chart-bar" style="height: 75%; background: #4facfe;"></div>
-                                            <div class="chart-bar" style="height: 85%; background: #00f2fe;"></div>
-                                            <div class="chart-bar" style="height: 70%; background: #f5576c;"></div>
-                                            <div class="chart-bar" style="height: 95%; background: #48bb78;"></div>
-                                        </div>
-                                        <div class="analytics-stats">
-                                            <div class="analytics-stat">
-                                                <div class="analytics-number">42h</div>
-                                                <div class="analytics-label">Total Study Time</div>
-                                            </div>
-                                            <div class="analytics-stat">
-                                                <div class="analytics-number">87%</div>
-                                                <div class="analytics-label">Goal Achievement</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="card">
+                        <h2>⏰ Upcoming Deadlines</h2>
+                        <div id="dash-deadlines">
+                            <p class="empty">No upcoming deadlines.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="hero-wave">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-            </svg>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2>Everything You Need to Excel</h2>
-                <p>Comprehensive tools designed for student success</p>
-            </div>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Smart Dashboard</h3>
-                    <p>Get a bird's eye view of your academic life with real-time statistics, upcoming deadlines, and today's schedule at a glance.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">📖</div>
-                    <h3>Subject Management</h3>
-                    <p>Organize subjects with custom colors, set priority levels, and define weekly study goals to stay on track.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">📅</div>
-                    <h3>Schedule Planner</h3>
-                    <p>Create your perfect weekly timetable with automatic conflict detection and color-coded subjects.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">✓</div>
-                    <h3>Task Manager</h3>
-                    <p>Track assignments, exams, and projects with deadlines, priorities, and completion status.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">📈</div>
-                    <h3>Progress Analytics</h3>
-                    <p>Visualize your study patterns with charts, track completion rates, and monitor goal achievement.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🌙</div>
-                    <h3>Dark Mode</h3>
-                    <p>Easy on the eyes with beautiful light and dark themes. Study comfortably day or night.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">💾</div>
-                    <h3>Auto-Save</h3>
-                    <p>Never lose your data. Everything saves automatically to your browser with export/import backup.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔔</div>
-                    <h3>Smart Reminders</h3>
-                    <p>Get desktop notifications for upcoming study sessions and never miss important deadlines.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3>Fully Responsive</h3>
-                    <p>Works perfectly on desktop, tablet, and mobile. Study anywhere, anytime, on any device.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <h2>How It Works</h2>
-                <p>Get started in just 3 simple steps</p>
-            </div>
-
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Add Your Subjects</h3>
-                        <p>Start by adding all your subjects with custom colors, priorities, and weekly study goals.</p>
-                        <div class="step-icon">📔✒️</div>
+                <div class="card">
+                    <h2>📖 My Subjects</h2>
+                    <div id="dash-subjects">
+                        <p class="empty">No subjects added yet.</p>
                     </div>
                 </div>
+            </section>
 
-                <div class="step-connector"></div>
+            <!-- Subjects -->
+            <section id="subjects" class="tab">
+                <h1>Subject Management</h1>
+                <div class="card">
+                    <h2>Add / Edit Subject</h2>
+                    <form id="subject-form" class="form-row">
+                        <input type="hidden" id="subject-edit-id">
+                        <input type="text" id="subject-name" placeholder="Subject name" required>
+                        <input type="color" id="subject-color" value="#667eea" title="Pick color">
+                        <select id="subject-priority">
+                            <option value="high">High Priority</option>
+                            <option value="medium" selected>Medium Priority</option>
+                            <option value="low">Low Priority</option>
+                        </select>
+                        <input type="number" id="subject-hours" placeholder="Hours/week" min="1" max="50" required>
+                        <button type="submit" class="btn">Save Subject</button>
+                        <button type="button" class="btn btn-cancel" id="subject-cancel"
+                            style="display:none">Cancel</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2>All Subjects</h2>
+                    <table id="subjects-table">
+                        <thead>
+                            <tr>
+                                <th>Color</th>
+                                <th>Name</th>
+                                <th>Priority</th>
+                                <th>Hours/Week</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjects-body"></tbody>
+                    </table>
+                    <p class="empty" id="subjects-empty">No subjects yet. Add one above!</p>
+                </div>
+            </section>
 
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Create Your Schedule</h3>
-                        <p>Build your weekly timetable and add tasks with deadlines. Our system prevents scheduling conflicts.</p>
-                        <div class="step-icon">📅</div>
+            <!-- Schedule -->
+            <section id="schedule" class="tab">
+                <h1>Schedule Planner</h1>
+                <div class="card">
+                    <h2>Add Schedule Entry</h2>
+                    <form id="schedule-form" class="form-row">
+                        <select id="sched-subject" required>
+                            <option value="">Select Subject</option>
+                        </select>
+                        <select id="sched-day" required>
+                            <option value="">Select Day</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                            <option>Sunday</option>
+                        </select>
+                        <input type="time" id="sched-start" required>
+                        <input type="time" id="sched-end" required>
+                        <button type="submit" class="btn">Add to Schedule</button>
+                    </form>
+                    <p id="sched-conflict" class="error" style="display:none"></p>
+                </div>
+                <div class="card">
+                    <h2>Weekly Timetable</h2>
+                    <div class="timetable-scroll">
+                        <table class="timetable" id="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                    <th>Sun</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timetable-body"></tbody>
+                        </table>
                     </div>
                 </div>
+            </section>
 
-                <div class="step-connector"></div>
+            <!-- Tasks -->
+            <section id="tasks" class="tab">
+                <h1>Task Manager</h1>
+                <div class="card">
+                    <h2>Add Task</h2>
+                    <form id="task-form" class="form-row">
+                        <input type="text" id="task-title" placeholder="Task title" required>
+                        <select id="task-subject">
+                            <option value="">No Subject</option>
+                        </select>
+                        <input type="date" id="task-due" required>
+                        <select id="task-priority">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                        <button type="submit" class="btn">Add Task</button>
+                    </form>
+                </div>
+                <div id="task-alerts" style="display:none"></div>
+                <div class="card">
+                    <h2>All Tasks</h2>
+                    <div class="task-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                    </div>
+                    <div id="tasks-list"></div>
+                    <p class="empty" id="tasks-empty">No tasks yet. Add one above!</p>
+                </div>
+            </section>
 
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Track & Improve</h3>
-                        <p>Monitor your progress with analytics, complete tasks, and optimize your study patterns for better results.</p>
-                        <div class="step-icon">🎯</div>
+            <!-- Analytics -->
+            <section id="analytics" class="tab">
+                <h1>Progress Analytics</h1>
+                <div class="stats-row" id="analytics-stats"></div>
+                <div class="two-col">
+                    <div class="card">
+                        <h2>📊 Study Hours by Subject</h2>
+                        <div id="hours-chart" class="chart-area"></div>
+                    </div>
+                    <div class="card">
+                        <h2>✅ Task Completion</h2>
+                        <div id="completion-chart" class="chart-area"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-    <div>
-        <br>
+                <div class="card">
+                    <h2>📋 Subject Breakdown</h2>
+                    <table id="breakdown-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Priority</th>
+                                <th>Goal (h/wk)</th>
+                                <th>Scheduled (h/wk)</th>
+                                <th>Tasks</th>
+                                <th>Done</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody id="breakdown-body"></tbody>
+                    </table>
+                    <p class="empty" id="breakdown-empty">Add subjects and tasks to see breakdown.</p>
+                </div>
+            </section>
+        </main>
     </div>
-
-    <!-- Benefits Section -->
-    <section id="benefits" class="benefits">
-        <div class="container">
-            <div class="benefits-content">
-                <div class="benefits-text">
-                    <h2>Why Students Love Smart Study Planner</h2>
-                    <div class="benefit-item">
-                        <div class="benefit-icon">✨</div>
-                        <div>
-                            <h3>Stay Organized</h3>
-                            <p>Keep all your subjects, schedules, and tasks in one place. No more scattered notes or forgotten deadlines.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-item">
-                        <div class="benefit-icon">⚡</div>
-                        <div>
-                            <h3>Boost Productivity</h3>
-                            <p>Visual schedules and priority management help you focus on what matters most and study more efficiently.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-item">
-                        <div class="benefit-icon">🎓</div>
-                        <div>
-                            <h3>Improve Grades</h3>
-                            <p>Better organization and time management leads to consistent studying and improved academic performance.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-item">
-                        <div class="benefit-icon">🔒</div>
-                        <div>
-                            <h3>Privacy First</h3>
-                            <p>All your data stays on your device. No accounts, no servers, no data collection. Complete privacy guaranteed.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="benefits-visual">
-                    <div class="benefit-card">
-                        <div class="benefit-stat">95%</div>
-                        <p>Better Time Management</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-stat">3x</div>
-                        <p>More Organized</p>
-                    </div>
-                    <div class="benefit-card">
-                        <div class="benefit-stat">100%</div>
-                        <p>Free & Private</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Students Say</h2>
-                <p>Real feedback from real students</p>
-            </div>
-
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"This planner completely transformed how I manage my studies. I've never been more organized!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">HG</div>
-                        <div>
-                            <div class="author-name">Harshit Gahlot</div>
-                            <div class="author-role">Computer Science Student</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"The visual analytics helped me identify where I was spending too much or too little time. Game changer!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">VT</div>
-                        <div>
-                            <div class="author-name">Vansh Tyagi</div>
-                            <div class="author-role">Engineering Student</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Love that it works offline and doesn't require any login. Perfect for students who value privacy!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">VV</div>
-                        <div>
-                            <div class="author-name">Vinay Verma</div>
-                            <div class="author-role">Medical Student</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Download Section -->
-    <section id="download" class="download">
-        <div class="container">
-            <div class="download-content">
-                <div class="download-text">
-                    <h2>Ready to Transform Your Study Routine?</h2>
-                    <p>Download NeuroPlan now and start your journey to better grades and stress-free studying.</p>
-                    
-                    <div class="download-features">
-                        <div class="download-feature">
-                            <span class="check-icon">✓</span>
-                            <span>100% Free - No Hidden Costs</span>
-                        </div>
-                        <div class="download-feature">
-                            <span class="check-icon">✓</span>
-                            <span>No Registration Required</span>
-                        </div>
-                        <div class="download-feature">
-                            <span class="check-icon">✓</span>
-                            <span>Works Offline</span>
-                        </div>
-                        <div class="download-feature">
-                            <span class="check-icon">✓</span>
-                            <span>All Devices Supported</span>
-                        </div>
-                    </div>
-
-                    <div class="download-buttons">
-                        <button class="btn btn-primary btn-large" onclick="downloadApp()">
-                            <span class="btn-icon">⬇️</span>
-                            Download Now
-                        </button>
-                        <p class="download-note">Simply download and open in your browser. No installation needed!</p>
-                    </div>
-                </div>
-
-                <div class="download-image">
-                    <div class="device-mockup">
-                        <div class="device-screen">
-                            <div class="screen-header">
-                                <div class="screen-dots">
-                                    <span></span><span></span><span></span>
-                                </div>
-                            </div>
-                            <div class="screen-content">
-                                <div class="screen-stat">
-                                    <div class="stat-value">12</div>
-                                    <div class="stat-label">Subjects</div>
-                                </div>
-                                <div class="screen-stat">
-                                    <div class="stat-value">8</div>
-                                    <div class="stat-label">Tasks Today</div>
-                                </div>
-                                <div class="screen-stat">
-                                    <div class="stat-value">95%</div>
-                                    <div class="stat-label">Completion</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq">
-        <div class="container">
-            <div class="section-header">
-                <h2>Frequently Asked Questions</h2>
-                <p>Everything you need to know</p>
-            </div>
-
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h3>Is NeuroPlan really free?</h3>
-                    <p>Yes! 100% free forever. No premium plans, no hidden costs, no subscriptions. All features are available to everyone.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>Do I need to create an account?</h3>
-                    <p>No! The planner works entirely in your browser. No registration, no login, no personal information required.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>Does it work offline?</h3>
-                    <p>Yes! Once you download the files, it works completely offline. Perfect for studying anywhere without internet.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>Will my data be saved?</h3>
-                    <p>Absolutely! All your data is automatically saved to your browser's local storage and persists across sessions.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>Can I use it on my phone?</h3>
-                    <p>Yes! The planner is fully responsive and works great on desktop, tablet, and mobile devices.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>How do I backup my data?</h3>
-                    <p>Use the built-in export feature to download your data as a JSON file. You can import it anytime to restore.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <span class="logo-icon">📔✒️</span>
-                        <span class="logo-text">NeuroPlan</span>
-                    </div>
-                    <p>Empowering students to achieve academic excellence through better organization and time management.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#benefits">Benefits</a></li>
-                        <li><a href="#download">Download</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#download">User Guide</a></li>
-                        <li><a href="#download">Support</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Technical</h4>
-                    <ul>
-                        <li>Built with HTML, CSS, JS</li>
-                        <li>No frameworks </li>
-                        <li>LocalStorage powered</li>
-                        <li>Open source friendly</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2026 NeuroPlan. Built for students, by student (Vanisha).</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop">↑</button>
-
     <script src="index.js"></script>
 </body>
+
 </html>
