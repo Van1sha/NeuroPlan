@@ -11,14 +11,19 @@
 <body>
     <div class="app">
         <!-- Sidebar -->
-        <nav class="sidebar">
+        <!-- Top Nav -->
+        <header class="top-nav">
             <div class="logo">📔 NeuroPlan</div>
-            <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
-            <button class="nav-btn" data-tab="subjects">📖 Subjects</button>
-            <button class="nav-btn" data-tab="schedule">📅 Schedule</button>
-            <button class="nav-btn" data-tab="tasks">✅ Tasks</button>
-            <button class="nav-btn" data-tab="analytics">📈 Analytics</button>
-        </nav>
+            <div class="nav-links">
+                <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+                <button class="nav-btn" data-tab="subjects">📖 Subjects</button>
+                <button class="nav-btn" data-tab="schedule">📅 Schedule</button>
+                <button class="nav-btn" data-tab="tasks">✅ Tasks</button>
+                <button class="nav-btn" data-tab="analytics">📈 Analytics</button>
+                <button class="nav-btn" data-tab="settings">⚙️ Settings</button> <!-- New -->
+            </div>
+            <button class="theme-toggle" id="theme-toggle">🌙 Dark Mode</button>
+        </header>
 
         <!-- Main Content -->
         <main class="content">
@@ -197,6 +202,28 @@
                         <tbody id="breakdown-body"></tbody>
                     </table>
                     <p class="empty" id="breakdown-empty">Add subjects and tasks to see breakdown.</p>
+                </div>
+            </section>
+
+            <!-- Settings -->
+            <section id="settings" class="tab">
+                <h1>Settings</h1>
+                <div class="card">
+                    <h2>Data Management</h2>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h3>Storage Usage</h3>
+                            <p id="storage-usage" class="text-muted">Calculating...</p>
+                        </div>
+                    </div>
+                    <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--table-border);">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h3>Reset Application</h3>
+                            <p class="text-muted">Permanently delete all subjects, tasks, and schedule data.</p>
+                        </div>
+                        <button class="btn btn-danger" onclick="resetData()">Reset All Data</button>
+                    </div>
                 </div>
             </section>
         </main>
