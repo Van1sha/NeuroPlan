@@ -8,6 +8,15 @@ function loadPref(key, def) { try { return JSON.parse(localStorage.getItem('pref
 function savePref(key, val) { const p = JSON.parse(localStorage.getItem('prefs') || '{}'); p[key] = val; localStorage.setItem('prefs', JSON.stringify(p)); }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
 
+// ── Theme Toggle ──
+function applyTheme(dark) {
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    document.getElementById('theme-toggle').textContent = dark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    savePref('darkMode', dark);
+}
+applyTheme(loadPref('darkMode', false));
+document.getElementById('theme-toggle').addEventListener('click', () => applyTheme(!loadPref('darkMode', false)));
+
 // ── Data ──
 let subjects = load('subjects');   // [{id, name, color, priority, hoursGoal}]
 let schedule = load('schedule');   // [{id, subjectId, day, startTime, endTime}]
@@ -29,8 +38,13 @@ function switchTab(tab) {
     if (tab === 'schedule') renderSchedule();
     if (tab === 'tasks') renderTasks();
     if (tab === 'analytics') renderAnalytics();
+    if (tab === 'settings') renderSettings();
 }
-navBtns.forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+navBtns.forEach((b, i) => {
+    b.addEventListener('click', () => switchTab(b.dataset.tab));
+    b.addEventListener('mousemove', e => { const r = b.getBoundingClientRect(); b.style.setProperty('--x', ((e.clientX - r.left) / r.width * 100) + '%'); b.style.setProperty('--y', ((e.clientY - r.top) / r.height * 100) + '%'); });
+    b.style.animation = `fadeSlideUp .4s ease ${i * .07}s both`;
+});
 
 // ── Helper: get subject by id ──
 function getSubject(id) { return subjects.find(s => s.id === id); }
@@ -377,6 +391,31 @@ function renderAnalytics() {
         </tr>`;
     }).join('');
 }
+
+// =============================================
+// F. SETTINGS
+// =============================================
+function getStorageUsage() {
+    let _lsTotal = 0, _xLen, _x;
+    for (_x in localStorage) {
+        if (!localStorage.hasOwnProperty(_x)) continue;
+        _xLen = ((localStorage[_x].length + _x.length) * 2);
+        _lsTotal += _xLen;
+    }
+    return (_lsTotal / 1024).toFixed(2);
+}
+
+function renderSettings() {
+    const usage = getStorageUsage();
+    document.getElementById('storage-usage').textContent = `${usage} KB used`;
+}
+
+window.resetData = function () {
+    if (confirm('⚠️ ARE YOU SURE?\n\nThis will permanently delete ALL subjects, tasks, and schedule data. This action cannot be undone.')) {
+        localStorage.clear();
+        location.reload();
+    }
+};
 
 // ── Initialize ──
 const startTab = loadPref('activeTab', 'dashboard');
