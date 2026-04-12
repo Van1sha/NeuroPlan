@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study Planner</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <!-- Top Nav -->
+        <header class="top-nav">
+            <div class="logo">📔 NeuroPlan</div>
+            <div class="nav-links">
+                <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+                <button class="nav-btn" data-tab="subjects">📖 Subjects</button>
+                <button class="nav-btn" data-tab="schedule">📅 Schedule</button>
+                <button class="nav-btn" data-tab="tasks">✅ Tasks</button>
+                <button class="nav-btn" data-tab="analytics">📈 Analytics</button>
+                <button class="nav-btn" data-tab="settings">⚙️ Settings</button> <!-- New -->
+            </div>
+            <button class="theme-toggle" id="theme-toggle">🌙 Dark Mode</button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="content">
+
+            <!-- Dashboard -->
+            <section id="dashboard" class="tab active">
+                <h1>Dashboard</h1>
+                <div class="stats-row" id="dash-stats"></div>
+                <div class="two-col">
+                    <div class="card">
+                        <h2>📅 Today's Schedule</h2>
+                        <div id="dash-schedule">
+                            <p class="empty">No classes scheduled today.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2>⏰ Upcoming Deadlines</h2>
+                        <div id="dash-deadlines">
+                            <p class="empty">No upcoming deadlines.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>📖 My Subjects</h2>
+                    <div id="dash-subjects">
+                        <p class="empty">No subjects added yet.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subjects -->
+            <section id="subjects" class="tab">
+                <h1>Subject Management</h1>
+                <div class="card">
+                    <h2>Add / Edit Subject</h2>
+                    <form id="subject-form" class="form-row">
+                        <input type="hidden" id="subject-edit-id">
+                        <input type="text" id="subject-name" placeholder="Subject name" required>
+                        <input type="color" id="subject-color" value="#667eea" title="Pick color">
+                        <select id="subject-priority">
+                            <option value="high">High Priority</option>
+                            <option value="medium" selected>Medium Priority</option>
+                            <option value="low">Low Priority</option>
+                        </select>
+                        <input type="number" id="subject-hours" placeholder="Hours/week" min="1" max="50" required>
+                        <button type="submit" class="btn">Save Subject</button>
+                        <button type="button" class="btn btn-cancel" id="subject-cancel"
+                            style="display:none">Cancel</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2>All Subjects</h2>
+                    <table id="subjects-table">
+                        <thead>
+                            <tr>
+                                <th>Color</th>
+                                <th>Name</th>
+                                <th>Priority</th>
+                                <th>Hours/Week</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subjects-body"></tbody>
+                    </table>
+                    <p class="empty" id="subjects-empty">No subjects yet. Add one above!</p>
+                </div>
+            </section>
+
+            <!-- Schedule -->
+            <section id="schedule" class="tab">
+                <h1>Schedule Planner</h1>
+                <div class="card">
+                    <h2>Add Schedule Entry</h2>
+                    <form id="schedule-form" class="form-row">
+                        <select id="sched-subject" required>
+                            <option value="">Select Subject</option>
+                        </select>
+                        <select id="sched-day" required>
+                            <option value="">Select Day</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option>Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                            <option>Sunday</option>
+                        </select>
+                        <input type="time" id="sched-start" required>
+                        <input type="time" id="sched-end" required>
+                        <button type="submit" class="btn">Add to Schedule</button>
+                    </form>
+                    <p id="sched-conflict" class="error" style="display:none"></p>
+                </div>
+                <div class="card">
+                    <h2>Weekly Timetable</h2>
+                    <div class="timetable-scroll">
+                        <table class="timetable" id="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Mon</th>
+                                    <th>Tue</th>
+                                    <th>Wed</th>
+                                    <th>Thu</th>
+                                    <th>Fri</th>
+                                    <th>Sat</th>
+                                    <th>Sun</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timetable-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tasks -->
+            <section id="tasks" class="tab">
+                <h1>Task Manager</h1>
+                <div class="card">
+                    <h2>Add Task</h2>
+                    <form id="task-form" class="form-row">
+                        <input type="text" id="task-title" placeholder="Task title" required>
+                        <select id="task-subject">
+                            <option value="">No Subject</option>
+                        </select>
+                        <input type="date" id="task-due" required>
+                        <select id="task-priority">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                        <button type="submit" class="btn">Add Task</button>
+                    </form>
+                </div>
+                <div id="task-alerts" style="display:none"></div>
+                <div class="card">
+                    <h2>All Tasks</h2>
+                    <div class="task-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="pending">Pending</button>
+                        <button class="filter-btn" data-filter="completed">Completed</button>
+                    </div>
+                    <div id="tasks-list"></div>
+                    <p class="empty" id="tasks-empty">No tasks yet. Add one above!</p>
+                </div>
+            </section>
+
+            <!-- Analytics -->
+            <section id="analytics" class="tab">
+                <h1>Progress Analytics</h1>
+                <div class="stats-row" id="analytics-stats"></div>
+                <div class="two-col">
+                    <div class="card">
+                        <h2>📊 Study Hours by Subject</h2>
+                        <div id="hours-chart" class="chart-area"></div>
+                    </div>
+                    <div class="card">
+                        <h2>✅ Task Completion</h2>
+                        <div id="completion-chart" class="chart-area"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2>📋 Subject Breakdown</h2>
+                    <table id="breakdown-table">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Priority</th>
+                                <th>Goal (h/wk)</th>
+                                <th>Scheduled (h/wk)</th>
+                                <th>Tasks</th>
+                                <th>Done</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody id="breakdown-body"></tbody>
+                    </table>
+                    <p class="empty" id="breakdown-empty">Add subjects and tasks to see breakdown.</p>
+                </div>
+            </section>
+
+            <!-- Settings -->
+            <section id="settings" class="tab">
+                <h1>Settings</h1>
+                <div class="card">
+                    <h2>Data Management</h2>
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h3>Storage Usage</h3>
+                            <p id="storage-usage" class="text-muted">Calculating...</p>
+                        </div>
+                    </div>
+                    <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--table-border);">
+                    <div class="setting-row">
+                        <div class="setting-info">
+                            <h3>Reset Application</h3>
+                            <p class="text-muted">Permanently delete all subjects, tasks, and schedule data.</p>
+                        </div>
+                        <button class="btn btn-danger" onclick="resetData()">Reset All Data</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>
